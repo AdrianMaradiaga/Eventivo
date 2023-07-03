@@ -3,6 +3,9 @@ package hn.uth.eventivo;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
+import android.view.Window;
+import android.view.WindowManager;
+
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 import androidx.navigation.NavController;
@@ -21,6 +24,7 @@ private ActivityMainBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
      binding = ActivityMainBinding.inflate(getLayoutInflater());
      setContentView(binding.getRoot());
