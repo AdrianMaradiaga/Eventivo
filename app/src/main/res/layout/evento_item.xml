@@ -69,7 +69,7 @@
                 tools:text="01/07/2024" />
 
             <ImageView
-                android:id="@+id/imageView5"
+                android:id="@+id/imgMore"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="24dp"

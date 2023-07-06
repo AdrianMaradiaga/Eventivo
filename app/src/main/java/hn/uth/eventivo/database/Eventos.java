@@ -27,7 +27,7 @@ public class Eventos {
     @ColumnInfo(name = "detalle")
     private String detalle;
 
-    public Eventos(int id_eventos, @NonNull String tema, @NonNull String expositor, @NonNull String fecha, @NonNull String estado, @NonNull String detalle) {
+    public Eventos(@NonNull String tema, @NonNull String expositor, @NonNull String fecha, @NonNull String estado, @NonNull String detalle) {
         this.id_eventos = id_eventos;
         this.tema = tema;
         this.expositor = expositor;
