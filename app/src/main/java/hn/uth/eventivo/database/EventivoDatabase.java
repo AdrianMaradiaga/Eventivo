@@ -35,6 +35,11 @@ public abstract class EventivoDatabase extends RoomDatabase {
 
                                     //AQUI SE PUEDEN CREAR VALORES POR DEFECTO DE LA BASE DE DATOS
                                     //dao.insert();
+                                    Eventos dato1 = new Eventos("Capitalismo", "Renato Chamorro", "20/11/2023", "activo", "El capitalismo en la actualidad");
+                                    Eventos dato2 = new Eventos("Fisica", "Javier Santaolalla", "21/11/2023", "activo", "Fisica de particulas");
+
+                                    dao.insert(dato1);
+                                    dao.insert(dato2);
                                 });
                             }
                         };
