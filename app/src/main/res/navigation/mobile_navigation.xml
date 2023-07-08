@@ -9,7 +9,18 @@
         android:id="@+id/nav_eventos"
         android:name="hn.uth.eventivo.ui.eventos.EventosFragment"
         android:label="@string/menu_eventos"
-        tools:layout="@layout/fragment_eventos" />
+        tools:layout="@layout/fragment_eventos">
+        <actiion android:id="@+id/action_eventosFragment_to_creacionEventoFragment" app:destination="@id/nav_creacion_evento"/>
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/nav_creacion_evento"
+        android:name="hn.uth.eventivo.ui.creacionEventos.CreacionEventoFragment"
+        android:label="@string/menu_creacion_evento"
+        tools:layout="@layout/fragment_creacion_evento"
+
+        />
 
     <fragment
         android:id="@+id/nav_invitados"
@@ -17,9 +28,5 @@
         android:label="@string/menu_invitados"
         tools:layout="@layout/fragment_gallery" />
 
-    <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="hn.uth.eventivo.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+
 </navigation>

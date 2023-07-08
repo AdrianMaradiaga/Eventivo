@@ -9,7 +9,13 @@
 
     <string name="menu_eventos">Eventos</string>
     <string name="menu_invitados">Invitados</string>
-    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_creacion_evento">Crear Evento</string>
     <string name="lbl_content_image_evento">Icono de evento</string>
     <string name="lbl_content_icon_mas">Leer mas</string>
+    <string name="lbl_Fecha">Fecha</string>
+    <string name="lbl_Expositor">Expositor</string>
+    <string name="lbl_Tema">Tema</string>
+    <string name="lbl_Estado">Activo</string>
+    <string name="lbl_Detalle">Detalle</string>
+    <string name="lbl_Guardar">Guardar</string>
 </resources>
