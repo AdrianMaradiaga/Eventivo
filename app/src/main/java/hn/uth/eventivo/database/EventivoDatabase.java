@@ -14,7 +14,7 @@ import java.util.concurrent.Executors;
 @Database(version = 1, exportSchema = false, entities = {Eventos.class})
 public abstract class EventivoDatabase extends RoomDatabase {
     public  abstract EventosDao eventosDao();
-    //public abstrac InvitadosDao invitadosDao();
+    //public abstract InvitadosDao invitadosDao();
 
     private static volatile EventivoDatabase INSTANCE;
     private static final int NUMBER_OF_THREADS = 4;

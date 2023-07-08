@@ -28,7 +28,6 @@ public class Eventos {
     private String detalle;
 
     public Eventos(@NonNull String tema, @NonNull String expositor, @NonNull String fecha, @NonNull String estado, @NonNull String detalle) {
-        this.id_eventos = id_eventos;
         this.tema = tema;
         this.expositor = expositor;
         this.fecha = fecha;
