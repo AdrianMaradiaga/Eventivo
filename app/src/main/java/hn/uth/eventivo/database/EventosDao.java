@@ -25,4 +25,8 @@ public interface EventosDao {
 
     @Query("SELECT * FROM eventos_table order by expositor")
     LiveData<List<Eventos>> getEventos();
+
+    //Buscar por expositor
+    @Query("SELECT * FROM eventos_table WHERE expositor LIKE :expositor")
+    LiveData<List<Eventos>> getEventosPorExpositor(String expositor);
 }
