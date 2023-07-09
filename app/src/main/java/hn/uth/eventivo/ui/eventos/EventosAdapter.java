@@ -1,35 +1,35 @@
 package hn.uth.eventivo.ui.eventos;
 
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+
 import androidx.annotation.NonNull;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
 import hn.uth.eventivo.OnItemClickListener;
+import hn.uth.eventivo.R;
 import hn.uth.eventivo.database.Eventos;
 import hn.uth.eventivo.databinding.EventoItemBinding;
 
 public class EventosAdapter extends RecyclerView.Adapter<EventosAdapter.ViewHolder> {
-
+    public ImageView imgMore;
     private List<Eventos> dataset;
     private OnItemClickListener<Eventos> manejadorEventoClick;
-    private Context context;
-    private EventosViewModel viewModel;
+    private Eventos eventoSeleccionado;
 
 
-    public EventosAdapter(Context context, List<Eventos> dataset, OnItemClickListener<Eventos> manejadorEventoClick, EventosViewModel viewModel) {
-        this.context = context;
+    public EventosAdapter(List<Eventos> dataset, OnItemClickListener<Eventos> manejadorEventoClick) {
         this.dataset = dataset;
         this.manejadorEventoClick = manejadorEventoClick;
-        this.viewModel = viewModel;
-    }
 
+    }
 
     @NonNull
     @Override
@@ -40,20 +40,27 @@ public class EventosAdapter extends RecyclerView.Adapter<EventosAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull EventosAdapter.ViewHolder holder, int position) {
-        Eventos eventoItem = dataset.get(position);
-        holder.binding.txtExpositor.setText(eventoItem.getExpositor());
-        holder.binding.txtTema.setText(eventoItem.getTema());
-        holder.binding.txtFecha.setText(eventoItem.getFecha());
-        holder.bind(eventoItem, manejadorEventoClick);
+        Eventos eventoMostrar = dataset.get(position);
+        holder.binding.txtExpositor.setText(eventoMostrar.getExpositor());
+        holder.binding.txtTema.setText(eventoMostrar.getTema());
+        holder.binding.txtFecha.setText(eventoMostrar.getFecha());
+        holder.setOnClickListener(eventoMostrar, manejadorEventoClick);
 
-        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+        holder.binding.imgMore.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onLongClick(View v) {
-                showDialog(eventoItem);
-                return true;
+            public void onClick(View v) {
+
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("evento", eventoMostrar);
+
+
+                NavController navController = Navigation.findNavController(v);
+                navController.navigate(R.id.nav_edicion_evento, bundle);
             }
         });
+
     }
+
 
     @Override
     public int getItemCount() {
@@ -65,36 +72,17 @@ public class EventosAdapter extends RecyclerView.Adapter<EventosAdapter.ViewHold
         notifyDataSetChanged();
     }
 
-    private void showDialog(Eventos evento) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("Eliminar registro");
-        builder.setMessage("¿Estás seguro de que deseas eliminar este registro?");
-        builder.setPositiveButton("Eliminar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                deleteEvento(evento);
-            }
-        });
-        builder.setNegativeButton("Cancelar", null);
-        builder.show();
-    }
-
-    private void deleteEvento(Eventos evento) {
-        // Implementa la lógica para eliminar el registro
-        viewModel.delete(evento);
-    }
-
     public class ViewHolder extends RecyclerView.ViewHolder{
         EventoItemBinding binding;
-
         public ViewHolder(@NonNull EventoItemBinding itemView) {
             super(itemView.getRoot());
             binding = itemView;
+            imgMore = binding.imgMore;
         }
 
-        public void bind(Eventos eventoMostrar, OnItemClickListener<Eventos> listener) {
-            binding.imgMore.setOnClickListener(v -> listener.onItemClick(eventoMostrar));
+        public void setOnClickListener(Eventos eventoMostrar, OnItemClickListener<Eventos> listener) {
+            this.binding.imgMore.setOnClickListener(v -> listener.onItemClick(eventoMostrar));
         }
+
     }
 }
-
