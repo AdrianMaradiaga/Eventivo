@@ -28,6 +28,11 @@ public class EventosViewModel extends AndroidViewModel {
     public LiveData<List<Eventos>> getEventosDataset() {
         return eventosDataset;
     }
+
+    public LiveData<List<Eventos>> buscarPorExpositor(String expositor) {
+        return repository.buscarPorExpositor(expositor);
+    }
+
     public void insert(Eventos nuevo){
         repository.insert(nuevo);
     }
