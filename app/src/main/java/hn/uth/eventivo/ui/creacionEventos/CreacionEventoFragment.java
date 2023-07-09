@@ -8,10 +8,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
-
 import hn.uth.eventivo.database.Eventos;
 import hn.uth.eventivo.databinding.FragmentCreacionEventoBinding;
-import hn.uth.eventivo.ui.eventos.EventosViewModel;
 
 public class CreacionEventoFragment extends Fragment {
 
@@ -20,12 +18,10 @@ public class CreacionEventoFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
             ViewGroup container, Bundle savedInstanceState) {
-
     binding = FragmentCreacionEventoBinding.inflate(inflater, container, false);
     View root = binding.getRoot();
 
         viewModel = new ViewModelProvider(this).get(CreacionEventoViewModel.class);
-
 
         binding.btnGuardar.setOnClickListener(v -> {
         Eventos nuevo = new Eventos(binding.tilTema.getText().toString(), binding.tilExpositor.getText().toString(),
@@ -41,11 +37,9 @@ public class CreacionEventoFragment extends Fragment {
             binding.bxEstado.setChecked(false);
             binding.tilDetalle.getText().clear();
 
-
             Navigation.findNavController(v).navigateUp();
 
         });
-
         return root;
     }
 

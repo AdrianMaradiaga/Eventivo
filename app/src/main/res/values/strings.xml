@@ -18,4 +18,5 @@
     <string name="lbl_Estado">Activo</string>
     <string name="lbl_Detalle">Detalle</string>
     <string name="lbl_Guardar">Guardar</string>
+    <string name="lbl_agregar_registro">Agregar registro</string>
 </resources>
