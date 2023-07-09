@@ -13,54 +13,66 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
+
 
 import java.util.Calendar;
 
-import hn.uth.eventivo.MainActivity;
 import hn.uth.eventivo.R;
 import hn.uth.eventivo.database.Eventos;
 import hn.uth.eventivo.databinding.FragmentCreacionEventoBinding;
-import hn.uth.eventivo.ui.eventos.EventosViewModel;
 
-public class CreacionEventoFragment extends Fragment {
+public class EdicionEventoFragment  extends Fragment {
 
     private FragmentCreacionEventoBinding binding;
     private CreacionEventoViewModel viewModel;
     private Eventos eventoExistente;
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentCreacionEventoBinding.inflate(inflater, container, false);
-        return binding.getRoot();
-    }
+        View root = binding.getRoot();
+        if (getArguments() != null) {
+            Bundle bundle = getArguments();
+            if (bundle != null) {
+                eventoExistente = bundle.getParcelable("evento");
+                if (eventoExistente != null) {
+                    binding.tilTema.setText(eventoExistente.getTema());
+                    binding.tilExpositor.setText(eventoExistente.getExpositor());
+                    binding.dtFecha.setText(eventoExistente.getFecha());
+                    binding.bxEstado.setChecked(Boolean.parseBoolean(eventoExistente.getEstado()));
+                    binding.tilDetalle.setText(eventoExistente.getDetalle());
+                }
+            }
+        }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+        viewModel = new ViewModelProvider(requireActivity()).get(CreacionEventoViewModel.class);
 
-        viewModel = new ViewModelProvider(this).get(CreacionEventoViewModel.class);
 
         binding.btnGuardar.setOnClickListener(v -> {
-            Eventos nuevo = new Eventos(binding.tilTema.getText().toString(), binding.tilExpositor.getText().toString(),
-                    binding.dtFecha.getText().toString(),
-                    binding.bxEstado.getText().toString(),
-                    binding.tilDetalle.getText().toString());
+            String tema = binding.tilTema.getText().toString();
+            String expositor = binding.tilExpositor.getText().toString();
+            String fecha = binding.dtFecha.getText().toString();
+            boolean estado = binding.bxEstado.isChecked();
+            String detalle = binding.tilDetalle.getText().toString();
 
-            viewModel.insert(nuevo);
+            if (eventoExistente != null) {
+                // Actualizar los datos del evento existente con los valores ingresados
+                eventoExistente.setTema(tema);
+                eventoExistente.setExpositor(expositor);
+                eventoExistente.setFecha(fecha);
+                eventoExistente.setEstado(String.valueOf(estado));
+                eventoExistente.setDetalle(detalle);
 
-            binding.tilTema.getText().clear();
-            binding.tilExpositor.getText().clear();
-            binding.dtFecha.setText("");
-            binding.bxEstado.setChecked(false);
-            binding.tilDetalle.getText().clear();
+                // Llamar al método de actualización en el ViewModel
+                viewModel.update(eventoExistente);
+            }
 
             Navigation.findNavController(v).navigateUp();
             Toast.makeText(v.getContext(), "Datos guardados correctamente", Toast.LENGTH_SHORT).show();
 
             finish();
         });
-
         binding.btnFecha.setOnClickListener(v -> {
             // Obtener fecha actual
             Calendar calendar = Calendar.getInstance();
@@ -80,16 +92,19 @@ public class CreacionEventoFragment extends Fragment {
 
             // Mostrar el DatePickerDialog
             datePickerDialog.show();
-        });
 
+        });
+        return root;
     }
 
     private void finish() {
     }
 
+
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
-    }
+        public void onDestroyView() {
+            super.onDestroyView();
+            binding = null;
+        }
 }
+
