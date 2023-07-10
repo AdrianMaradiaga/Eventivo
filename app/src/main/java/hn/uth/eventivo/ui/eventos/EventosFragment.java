@@ -18,7 +18,6 @@ import hn.uth.eventivo.database.Eventos;
 import hn.uth.eventivo.databinding.FragmentEventosBinding;
 
 public class EventosFragment extends Fragment implements OnItemClickListener<Eventos> {
-
     private FragmentEventosBinding binding;
     private EventosAdapter adaptador;
     private EventosViewModel viewModel;
@@ -28,9 +27,7 @@ public class EventosFragment extends Fragment implements OnItemClickListener<Eve
         binding = FragmentEventosBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         viewModel = new ViewModelProvider(this).get(EventosViewModel.class);
-
         adaptador = new EventosAdapter(getContext(), new ArrayList<>(), this, viewModel);
-
         viewModel.getEventosDataset().observe(getViewLifecycleOwner(), eventos -> adaptador.setItems(eventos));
 
         setupRecyclerView();

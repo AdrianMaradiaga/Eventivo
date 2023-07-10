@@ -10,76 +10,63 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
-
 import java.util.Calendar;
-
 import hn.uth.eventivo.database.Eventos;
 import hn.uth.eventivo.databinding.FragmentCreacionEventoBinding;
 
-public class CreacionEventoFragment extends Fragment {
+public class EdicionEventoFragment  extends Fragment {
 
     private FragmentCreacionEventoBinding binding;
     private CreacionEventoViewModel viewModel;
     private Eventos eventoExistente;
 
-
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentCreacionEventoBinding.inflate(inflater, container, false);
-        return binding.getRoot();
-    }
+        View root = binding.getRoot();
+        if (getArguments() != null) {
+            Bundle bundle = getArguments();
+            if (bundle != null) {
+                eventoExistente = bundle.getParcelable("evento");
+                if (eventoExistente != null) {
+                    binding.tilTema.setText(eventoExistente.getTema());
+                    binding.tilExpositor.setText(eventoExistente.getExpositor());
+                    binding.dtFecha.setText(eventoExistente.getFecha());
+                    binding.bxEstado.setChecked(Boolean.parseBoolean(eventoExistente.getEstado()));
+                    binding.tilDetalle.setText(eventoExistente.getDetalle());
+                }
+            }
+        }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+        viewModel = new ViewModelProvider(requireActivity()).get(CreacionEventoViewModel.class);
 
-        viewModel = new ViewModelProvider(this).get(CreacionEventoViewModel.class);
 
         binding.btnGuardar.setOnClickListener(v -> {
-            String tema = binding.tilTema.getText().toString().trim();
-            String expositor = binding.tilExpositor.getText().toString().trim();
-            String fecha = binding.dtFecha.getText().toString().trim();
-            String detalle = binding.tilDetalle.getText().toString().trim();
+            String tema = binding.tilTema.getText().toString();
+            String expositor = binding.tilExpositor.getText().toString();
+            String fecha = binding.dtFecha.getText().toString();
+            boolean estado = binding.bxEstado.isChecked();
+            String detalle = binding.tilDetalle.getText().toString();
 
-            if (tema.isEmpty()) {
-                Toast.makeText(getContext(), "Ingrese el tema", Toast.LENGTH_SHORT).show();
-                return;
+            if (eventoExistente != null) {
+                // Actualizar los datos del evento existente con los valores ingresados
+                eventoExistente.setTema(tema);
+                eventoExistente.setExpositor(expositor);
+                eventoExistente.setFecha(fecha);
+                eventoExistente.setEstado(String.valueOf(estado));
+                eventoExistente.setDetalle(detalle);
+
+                // Llamar al método de actualización en el ViewModel
+                viewModel.update(eventoExistente);
             }
-
-            if (expositor.isEmpty()) {
-                Toast.makeText(getContext(), "Ingrese el expositor", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            if (fecha.isEmpty()) {
-                Toast.makeText(getContext(), "Ingrese la fecha", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            if (detalle.isEmpty()) {
-                Toast.makeText(getContext(), "Ingrese el detalle", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-
-            // Realiza la acción de guardar el evento
-            Eventos nuevo = new Eventos(tema, expositor, fecha, "", detalle);
-            viewModel.insert(nuevo);
-
-            binding.tilTema.getText().clear();
-            binding.tilExpositor.getText().clear();
-            binding.dtFecha.setText("");
-            binding.bxEstado.setChecked(false);
-            binding.tilDetalle.getText().clear();
 
             Navigation.findNavController(v).navigateUp();
             Toast.makeText(v.getContext(), "Datos guardados correctamente", Toast.LENGTH_SHORT).show();
+
             finish();
         });
-
         binding.btnFecha.setOnClickListener(v -> {
             // Obtener fecha actual
             Calendar calendar = Calendar.getInstance();
@@ -99,13 +86,13 @@ public class CreacionEventoFragment extends Fragment {
 
             // Mostrar el DatePickerDialog
             datePickerDialog.show();
-        });
 
+        });
+        return root;
     }
 
     private void finish() {
     }
-
 
     @Override
     public void onDestroyView() {

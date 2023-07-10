@@ -3,24 +3,32 @@ package hn.uth.eventivo.ui.eventos;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+
 import androidx.annotation.NonNull;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
 import hn.uth.eventivo.OnItemClickListener;
+import hn.uth.eventivo.R;
 import hn.uth.eventivo.database.Eventos;
 import hn.uth.eventivo.databinding.EventoItemBinding;
 
 public class EventosAdapter extends RecyclerView.Adapter<EventosAdapter.ViewHolder> {
+    public ImageView imgMore;
 
     private List<Eventos> dataset;
     private OnItemClickListener<Eventos> manejadorEventoClick;
     private Context context;
     private EventosViewModel viewModel;
+    private Eventos eventoSeleccionado;
 
 
     public EventosAdapter(Context context, List<Eventos> dataset, OnItemClickListener<Eventos> manejadorEventoClick, EventosViewModel viewModel) {
@@ -29,7 +37,6 @@ public class EventosAdapter extends RecyclerView.Adapter<EventosAdapter.ViewHold
         this.manejadorEventoClick = manejadorEventoClick;
         this.viewModel = viewModel;
     }
-
 
     @NonNull
     @Override
@@ -44,7 +51,7 @@ public class EventosAdapter extends RecyclerView.Adapter<EventosAdapter.ViewHold
         holder.binding.txtExpositor.setText(eventoItem.getExpositor());
         holder.binding.txtTema.setText(eventoItem.getTema());
         holder.binding.txtFecha.setText(eventoItem.getFecha());
-        holder.bind(eventoItem, manejadorEventoClick);
+        holder.setOnClickListener(eventoItem, manejadorEventoClick);
 
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -53,6 +60,20 @@ public class EventosAdapter extends RecyclerView.Adapter<EventosAdapter.ViewHold
                 return true;
             }
         });
+
+        holder.binding.imgMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("evento", eventoItem);
+
+
+                NavController navController = Navigation.findNavController(v);
+                navController.navigate(R.id.nav_edicion_evento, bundle);
+            }
+        });
+
     }
 
     @Override
@@ -80,19 +101,18 @@ public class EventosAdapter extends RecyclerView.Adapter<EventosAdapter.ViewHold
     }
 
     private void deleteEvento(Eventos evento) {
-        // Implementa la lógica para eliminar el registro
         viewModel.delete(evento);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         EventoItemBinding binding;
-
         public ViewHolder(@NonNull EventoItemBinding itemView) {
             super(itemView.getRoot());
             binding = itemView;
+            imgMore = binding.imgMore;
         }
 
-        public void bind(Eventos eventoMostrar, OnItemClickListener<Eventos> listener) {
+        public void setOnClickListener(Eventos eventoMostrar, OnItemClickListener<Eventos> listener) {
             binding.imgMore.setOnClickListener(v -> listener.onItemClick(eventoMostrar));
         }
     }

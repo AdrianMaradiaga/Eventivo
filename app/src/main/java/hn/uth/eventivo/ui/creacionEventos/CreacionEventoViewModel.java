@@ -4,24 +4,17 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
-
-import java.util.List;
-
 import hn.uth.eventivo.database.Eventos;
 import hn.uth.eventivo.database.EventosRepository;
 
 
 public class CreacionEventoViewModel extends AndroidViewModel {
 
-
-
     private EventosRepository repository;
     public CreacionEventoViewModel(@NonNull Application app) {
         super(app);
         this.repository = new EventosRepository(app);
     }
-
 
     public EventosRepository getRepository() {
         return repository;

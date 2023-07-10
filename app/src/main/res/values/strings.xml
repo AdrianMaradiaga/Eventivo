@@ -5,18 +5,19 @@
     <string name="nav_header_title">Eventivo</string>
     <string name="nav_header_subtitle">eventivo@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_delete">Limpiar pantalla</string>
 
     <string name="menu_eventos">Eventos</string>
     <string name="menu_invitados">Invitados</string>
     <string name="menu_creacion_evento">Crear Evento</string>
     <string name="lbl_content_image_evento">Icono de evento</string>
     <string name="lbl_content_icon_mas">Leer mas</string>
-    <string name="lbl_Fecha">Fecha</string>
+    <string name="lbl_Fecha">MM/DD/AA</string>
+    <string name="btn_fecha">Fecha</string>
     <string name="lbl_Expositor">Expositor</string>
     <string name="lbl_Tema">Tema</string>
-    <string name="lbl_Estado">Activo</string>
+    <string name="lbl_Estado">Finalizado</string>
     <string name="lbl_Detalle">Detalle</string>
     <string name="lbl_Guardar">Guardar</string>
-    <string name="lbl_agregar_registro">Agregar registro</string>
+    <string name="lbl_agregar_registro">Agregar</string>
 </resources>

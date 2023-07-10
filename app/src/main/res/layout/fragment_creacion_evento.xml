@@ -6,27 +6,42 @@
     android:layout_height="match_parent"
     tools:context=".ui.creacionEventos.CreacionEventoFragment">
 
-    <EditText
-        android:id="@+id/dtFecha"
-        android:layout_width="0dp"
+    <Button
+        android:id="@+id/btnFecha"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="108dp"
+        android:text="@string/btn_fecha"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        app:layout_constraintHorizontal_bias="0.055"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout3" />
+
+    <TextView
+        android:id="@+id/dtFecha"
+        android:layout_width="81dp"
+        android:layout_height="21dp"
+        android:layout_marginStart="112dp"
         android:layout_marginEnd="128dp"
         android:ems="10"
         android:hint="@string/lbl_Fecha"
-        android:inputType="datetime"
         android:minHeight="48dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btnFecha"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout3"
+        app:layout_constraintTop_toTopOf="@+id/btnFecha"
         tools:ignore="MissingConstraints,SpeakableTextPresentCheck" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout3"
-        android:layout_width="409dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
@@ -53,9 +68,11 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout"
-        android:layout_width="409dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView3">
@@ -65,23 +82,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/lbl_Tema"
-            android:inputType="text|textAutoCorrect" />
+            android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <CheckBox
         android:id="@+id/bxEstado"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="119dp"
+        android:layout_height="44dp"
         android:text="@string/lbl_Estado"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/dtFecha"
-        app:layout_constraintTop_toTopOf="@+id/dtFecha" />
+        app:layout_constraintTop_toTopOf="@+id/btnFecha" />
 
     <EditText
         android:id="@+id/tilDetalle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="17dp"
         android:gravity="start"
         android:hint="@string/lbl_Detalle"
         android:inputType="text|textMultiLine"
@@ -91,7 +110,7 @@
         android:scrollbars="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bxEstado"
+        app:layout_constraintTop_toBottomOf="@+id/btnFecha"
         tools:ignore="MissingConstraints,SpeakableTextPresentCheck" />
 
     <Button
@@ -99,7 +118,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="64dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="48dp"
         android:layout_marginEnd="64dp"
         android:text="@string/lbl_Guardar"
         app:layout_constraintEnd_toEndOf="parent"

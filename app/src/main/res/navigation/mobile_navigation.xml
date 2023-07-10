@@ -10,13 +10,19 @@
         android:name="hn.uth.eventivo.ui.eventos.EventosFragment"
         android:label="@string/menu_eventos"
         tools:layout="@layout/fragment_eventos">
-        <actiion android:id="@+id/action_eventosFragment_to_creacionEventoFragment" app:destination="@id/nav_creacion_evento"/>
     </fragment>
 
 
     <fragment
         android:id="@+id/nav_creacion_evento"
         android:name="hn.uth.eventivo.ui.creacionEventos.CreacionEventoFragment"
+        android:label="@string/menu_creacion_evento"
+        tools:layout="@layout/fragment_creacion_evento"
+        />
+
+    <fragment
+        android:id="@+id/nav_edicion_evento"
+        android:name="hn.uth.eventivo.ui.creacionEventos.EdicionEventoFragment"
         android:label="@string/menu_creacion_evento"
         tools:layout="@layout/fragment_creacion_evento"
 
