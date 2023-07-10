@@ -27,6 +27,7 @@ public class EdicionEventoFragment  extends Fragment {
         binding = FragmentCreacionEventoBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         if (getArguments() != null) {
+            binding.bxEstado.setVisibility(View.VISIBLE); // Mostrar bxEstado en el fragmento de edición
             Bundle bundle = getArguments();
             if (bundle != null) {
                 eventoExistente = bundle.getParcelable("evento");

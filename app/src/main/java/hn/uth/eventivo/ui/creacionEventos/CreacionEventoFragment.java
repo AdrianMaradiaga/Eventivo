@@ -25,6 +25,7 @@ public class CreacionEventoFragment extends Fragment {
     private FragmentCreacionEventoBinding binding;
     private CreacionEventoViewModel viewModel;
     private Eventos eventoExistente;
+    private boolean estadoGuardado = false;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -38,11 +39,17 @@ public class CreacionEventoFragment extends Fragment {
 
         viewModel = new ViewModelProvider(this).get(CreacionEventoViewModel.class);
 
+        if (savedInstanceState != null) {
+            estadoGuardado = savedInstanceState.getBoolean("estadoGuardado");
+            binding.bxEstado.setChecked(estadoGuardado);
+        }
+
         binding.btnGuardar.setOnClickListener(v -> {
             String tema = binding.tilTema.getText().toString().trim();
             String expositor = binding.tilExpositor.getText().toString().trim();
             String fecha = binding.dtFecha.getText().toString().trim();
             String detalle = binding.tilDetalle.getText().toString().trim();
+            String estado = binding.bxEstado.isChecked() ? "finalizado" : "no finalizado";
 
             if (tema.isEmpty()) {
                 Toast.makeText(getContext(), "Ingrese el tema", Toast.LENGTH_SHORT).show();
@@ -64,9 +71,8 @@ public class CreacionEventoFragment extends Fragment {
                 return;
             }
 
-
             // Realiza la acción de guardar el evento
-            Eventos nuevo = new Eventos(tema, expositor, fecha, "", detalle);
+            Eventos nuevo = new Eventos(tema, expositor, fecha, estado, detalle);
             viewModel.insert(nuevo);
 
             binding.tilTema.getText().clear();
@@ -106,6 +112,11 @@ public class CreacionEventoFragment extends Fragment {
     private void finish() {
     }
 
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean("estadoGuardado", binding.bxEstado.isChecked());
+    }
 
     @Override
     public void onDestroyView() {
