@@ -23,16 +23,29 @@
     <fragment
         android:id="@+id/nav_edicion_evento"
         android:name="hn.uth.eventivo.ui.creacionEventos.EdicionEventoFragment"
-        android:label="@string/menu_creacion_evento"
+        android:label="@string/menu_edicion_evento"
         tools:layout="@layout/fragment_creacion_evento"
-
         />
 
     <fragment
         android:id="@+id/nav_invitados"
-        android:name="hn.uth.eventivo.ui.gallery.GalleryFragment"
+        android:name="hn.uth.eventivo.ui.invitados.InvitadosFragment"
         android:label="@string/menu_invitados"
-        tools:layout="@layout/fragment_gallery" />
+        tools:layout="@layout/fragment_invitados" />
+
+    <fragment
+        android:id="@+id/nav_creacion_invitado"
+        android:name="hn.uth.eventivo.ui.creacionInvitados.CreacionInvitadoFragment"
+        android:label="@string/menu_creacion_invitado"
+        tools:layout="@layout/fragment_creacion_invitado"
+        />
+
+    <fragment
+        android:id="@+id/nav_edicion_invitado"
+        android:name="hn.uth.eventivo.ui.creacionInvitados.EdicionInvitadoFragment"
+        android:label="@string/menu_edicion_invitado"
+        tools:layout="@layout/fragment_creacion_invitado"
+        />
 
 
 </navigation>

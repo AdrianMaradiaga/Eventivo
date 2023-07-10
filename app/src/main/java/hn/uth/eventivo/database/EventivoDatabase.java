@@ -11,10 +11,10 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(version = 1, exportSchema = false, entities = {Eventos.class})
+@Database(version = 3, exportSchema = false, entities = {Eventos.class, Invitados.class})
 public abstract class EventivoDatabase extends RoomDatabase {
     public  abstract EventosDao eventosDao();
-    //public abstract InvitadosDao invitadosDao();
+    public abstract InvitadosDao invitadosDao();
 
     private static volatile EventivoDatabase INSTANCE;
     private static final int NUMBER_OF_THREADS = 4;
@@ -31,7 +31,9 @@ public abstract class EventivoDatabase extends RoomDatabase {
                                 super.onCreate(db);
                                 databaseWriteExectutor.execute(() -> {
                                     EventosDao dao = INSTANCE.eventosDao();
+                                    InvitadosDao daoInvitados = INSTANCE.invitadosDao();
                                     dao.deleteAll();
+                                    daoInvitados.deleteAll();
 
                                     //AQUI SE PUEDEN CREAR VALORES POR DEFECTO DE LA BASE DE DATOS
                                     //dao.insert();
@@ -40,6 +42,18 @@ public abstract class EventivoDatabase extends RoomDatabase {
 
                                     dao.insert(dato1);
                                     dao.insert(dato2);
+
+                                    Invitados dato5= new Invitados("Carlos Moradel", "c_2@yahoo.com", "11/09/2022");
+                                    Invitados dato6= new Invitados("Ian Saenz", "iansaenz@gmail.com", "08/01/2021");
+                                    Invitados dato7= new Invitados("Carlos Moradel", "c_2@yahoo.com", "11/09/2022");
+                                    Invitados dato8= new Invitados("Ian Saenz", "iansaenz@gmail.com", "08/01/2021");
+
+                                    daoInvitados.insert(dato5);
+                                    daoInvitados.insert(dato6);
+                                    daoInvitados.insert(dato7);
+                                    daoInvitados.insert(dato8);
+
+
                                 });
                             }
                         };

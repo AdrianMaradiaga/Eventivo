@@ -17,5 +17,10 @@
             android:icon="@drawable/baseline_people_24"
             android:title="@string/menu_invitados" />
 
+        <item
+            android:id="@+id/nav_creacion_invitado"
+            android:icon="@drawable/baseline_person_add_24"
+            android:title="@string/menu_creacion_invitado" />
+
     </group>
 </menu>

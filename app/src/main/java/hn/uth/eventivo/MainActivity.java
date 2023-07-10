@@ -20,11 +20,13 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import hn.uth.eventivo.database.EventosRepository;
+import hn.uth.eventivo.database.InvitadosRepository;
 import hn.uth.eventivo.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
     private View creacionEventoView;
     private EventosRepository eventosRepository;
+    private InvitadosRepository invitadosRepository;
 
     private AppBarConfiguration mAppBarConfiguration;
     @NonNull
@@ -47,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_eventos, R.id.nav_invitados, R.id.nav_creacion_evento)
+                R.id.nav_eventos, R.id.nav_invitados, R.id.nav_creacion_evento, R.id.nav_creacion_invitado)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);

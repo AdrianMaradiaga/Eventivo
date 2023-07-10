@@ -10,6 +10,10 @@
     <string name="menu_eventos">Eventos</string>
     <string name="menu_invitados">Invitados</string>
     <string name="menu_creacion_evento">Crear Evento</string>
+    <string name="menu_edicion_evento">Actualizar Evento</string>
+    <string name="menu_creacion_invitado">Crear Invitado</string>
+    <string name="menu_edicion_invitado">Actualizar Invitado</string>
+
     <string name="lbl_content_image_evento">Icono de evento</string>
     <string name="lbl_content_icon_mas">Leer mas</string>
     <string name="lbl_Fecha">MM/DD/AA</string>
@@ -20,4 +24,9 @@
     <string name="lbl_Detalle">Detalle</string>
     <string name="lbl_Guardar">Guardar</string>
     <string name="lbl_agregar_registro">Agregar</string>
+    <string name="lbl_invitado_image">Imagen de invitado</string>
+    <string name="lbl_contenido">Leer mas</string>
+    <string name="lbl_Invitado">Invitado</string>
+    <string name="btnGuardado">Guardar</string>
+    <string name="lbl_correo">Correo</string>
 </resources>
