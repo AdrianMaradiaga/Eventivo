@@ -48,5 +48,4 @@ public class EventosViewModel extends AndroidViewModel {
     public void deleteAll(){
         repository.deleteAll();
     }
-
 }
