@@ -19,7 +19,7 @@ import java.util.Calendar;
 import hn.uth.eventivo.database.Invitados;
 import hn.uth.eventivo.databinding.FragmentCreacionInvitadoBinding;
 
-public class EdicionInvitadoFragment  extends Fragment {
+public class EdicionInvitadoFragment extends Fragment {
 
     private FragmentCreacionInvitadoBinding binding;
     private CreacionInvitadoViewModel viewModel;
@@ -28,27 +28,29 @@ public class EdicionInvitadoFragment  extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentCreacionInvitadoBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        // Obtener el argumento pasado al fragmento
         if (getArguments() != null) {
             Bundle bundle = getArguments();
             if (bundle != null) {
                 invitadosExistente = bundle.getParcelable("invitado");
+
+                // Si hay un invitado existente, establecer los valores en los campos de edición
                 if (invitadosExistente != null) {
                     binding.tilInvitado.setText(invitadosExistente.getNombre());
                     binding.tillCorreo.setText(invitadosExistente.getCorreo());
                     binding.dtFecha.setText(invitadosExistente.getFecha_registro());
-
                 }
             }
         }
 
         viewModel = new ViewModelProvider(requireActivity()).get(CreacionInvitadoViewModel.class);
 
-
+        // Configurar el botón de guardado
         binding.btnGuardado.setOnClickListener(v -> {
             String nombre = binding.tilInvitado.getText().toString();
             String correo = binding.tillCorreo.getText().toString();
             String fecha = binding.dtFecha.getText().toString();
-
 
             if (invitadosExistente != null) {
                 // Actualizar los datos del invitado existente con los valores ingresados
@@ -56,16 +58,20 @@ public class EdicionInvitadoFragment  extends Fragment {
                 invitadosExistente.setCorreo(correo);
                 invitadosExistente.setFecha_registro(fecha);
 
-
                 // Llamar al método de actualización en el ViewModel
                 viewModel.update(invitadosExistente);
             }
 
+            // Navegar hacia atrás en la navegación
             Navigation.findNavController(v).navigateUp();
+
+            // Mostrar mensaje de éxito
             Toast.makeText(v.getContext(), "Datos guardados correctamente", Toast.LENGTH_SHORT).show();
 
             finish();
         });
+
+        // Configurar el botón para seleccionar fecha
         binding.btnFecha.setOnClickListener(v -> {
             // Obtener fecha actual
             Calendar calendar = Calendar.getInstance();
@@ -85,8 +91,8 @@ public class EdicionInvitadoFragment  extends Fragment {
 
             // Mostrar el DatePickerDialog
             datePickerDialog.show();
-
         });
+
         return root;
     }
 
@@ -99,4 +105,5 @@ public class EdicionInvitadoFragment  extends Fragment {
         binding = null;
     }
 }
+
 

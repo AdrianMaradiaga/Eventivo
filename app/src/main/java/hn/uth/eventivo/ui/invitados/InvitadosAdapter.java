@@ -38,17 +38,24 @@ public class InvitadosAdapter extends RecyclerView.Adapter<InvitadosAdapter.View
     @NonNull
     @Override
     public InvitadosAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        // Inflar el diseño del elemento de invitado
         InvitadoItemBinding binding = InvitadoItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
         return new InvitadosAdapter.ViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull InvitadosAdapter.ViewHolder holder, int position) {
+        // Obtener el objeto invitado correspondiente a la posición actual
         Invitados invitadoItem = dataset.get(position);
+
+        // Establecer el nombre y la fecha de registro en las vistas correspondientes
         holder.binding.txtInvitado.setText(invitadoItem.getNombre());
         holder.binding.txtFechaRegistro.setText(invitadoItem.getFecha_registro());
+
+        // Configurar el evento de clic en el elemento de invitado
         holder.setOnClickListener(invitadoItem, manejadorEventoClick);
 
+        // Configurar el evento de clic largo en el elemento de invitado para mostrar el diálogo de eliminación
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -57,14 +64,15 @@ public class InvitadosAdapter extends RecyclerView.Adapter<InvitadosAdapter.View
             }
         });
 
+        // Configurar el evento de clic en el botón "Más" para navegar a la pantalla de edición de invitado
         holder.binding.imgMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                // Crear un paquete Bundle para pasar el objeto invitado a la pantalla de edición
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("invitado", invitadoItem);
 
-
+                // Obtener el NavController y navegar a la pantalla de edición de invitado
                 NavController navController = Navigation.findNavController(v);
                 navController.navigate(R.id.nav_edicion_invitado, bundle);
             }
@@ -82,6 +90,7 @@ public class InvitadosAdapter extends RecyclerView.Adapter<InvitadosAdapter.View
     }
 
     private void showDialog(Invitados invitado) {
+        // Crear el diálogo de confirmación de eliminación
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Eliminar registro");
         builder.setMessage("¿Estás seguro de que deseas eliminar este registro?");
@@ -96,11 +105,13 @@ public class InvitadosAdapter extends RecyclerView.Adapter<InvitadosAdapter.View
     }
 
     private void deleteInvitado(Invitados invitado) {
+        // Llamar al método de eliminación en el ViewModel
         viewModel.delete(invitado);
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
         InvitadoItemBinding binding;
+
         public ViewHolder(@NonNull InvitadoItemBinding itemView) {
             super(itemView.getRoot());
             binding = itemView;
@@ -108,8 +119,8 @@ public class InvitadosAdapter extends RecyclerView.Adapter<InvitadosAdapter.View
         }
 
         public void setOnClickListener(Invitados invitadoMostrar, OnItemClickListener<Invitados> listener) {
+            // Configurar el evento de clic en el botón "Más" para invocar el manejador de eventos externo
             binding.imgMore.setOnClickListener(v -> listener.onItemClick(invitadoMostrar));
         }
     }
-
 }

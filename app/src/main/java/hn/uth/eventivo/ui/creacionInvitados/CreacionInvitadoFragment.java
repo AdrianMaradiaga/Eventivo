@@ -26,27 +26,34 @@ public class CreacionInvitadoFragment extends Fragment {
 
     private Invitados InvitadosExistente;
 
+    /**
+     * Método llamado al crear la vista del fragmento.
+     */
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentCreacionInvitadoBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
-
+    /**
+     * Método llamado después de que la vista haya sido creada.
+     * Aquí se inicializan los elementos de la interfaz de usuario y se configuran los listeners.
+     */
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle SavedInstanceState) {
-        super.onViewCreated(view, SavedInstanceState);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         viewModel = new ViewModelProvider(this).get(CreacionInvitadoViewModel.class);
 
+        // Configuración del botón Guardar
         binding.btnGuardado.setOnClickListener(v -> {
+            // Obtener los valores ingresados por el usuario
             String invitado = binding.tilInvitado.getText().toString().trim();
             String correo = binding.tillCorreo.getText().toString().trim();
             String fecha = binding.dtFecha.getText().toString().trim();
 
-
-
+            // Validar campos vacíos
             if (invitado.isEmpty()) {
-                Toast.makeText(getContext(), "Nombre del Invitado", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Ingrese el nombre del invitado", Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -60,21 +67,25 @@ public class CreacionInvitadoFragment extends Fragment {
                 return;
             }
 
-            // Realiza la acción de guardar el evento
-            Invitados nuevo = new Invitados (invitado, correo, fecha);
+            // Crear un nuevo objeto Invitados con los valores ingresados
+            Invitados nuevo = new Invitados(invitado, correo, fecha);
+
+            // Insertar el nuevo invitado utilizando el ViewModel
             viewModel.insert(nuevo);
 
+            // Limpiar los campos de entrada
             binding.tilInvitado.getText().clear();
             binding.tillCorreo.getText().clear();
             binding.dtFecha.setText("");
 
-
+            // Navegar de regreso a la página de fragment_invitados
             Navigation.findNavController(v).navigateUp();
+
             Toast.makeText(v.getContext(), "Datos guardados correctamente", Toast.LENGTH_SHORT).show();
             finish();
         });
 
-
+        // Configuración del botón Fecha
         binding.btnFecha.setOnClickListener(v -> {
             // Obtener fecha actual
             Calendar calendar = Calendar.getInstance();
@@ -95,12 +106,10 @@ public class CreacionInvitadoFragment extends Fragment {
             // Mostrar el DatePickerDialog
             datePickerDialog.show();
         });
-
     }
 
     private void finish() {
     }
-
 
     @Override
     public void onDestroyView() {

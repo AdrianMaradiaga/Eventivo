@@ -24,15 +24,23 @@ public class InvitadosFragment extends Fragment implements OnItemClickListener<I
     private InvitadosViewModel viewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
+        // Inflar el diseño del fragmento
         binding = FragmentInvitadosBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        // Obtener la instancia del ViewModel
         viewModel = new ViewModelProvider(this).get(InvitadosViewModel.class);
+
+        // Crear el adaptador y configurar el manejador de eventos de clic
         adaptador = new InvitadosAdapter(getContext(), new ArrayList<>(), this, viewModel);
+
+        // Observar los cambios en el conjunto de datos de invitados y actualizar el adaptador
         viewModel.getInvitadosDataset().observe(getViewLifecycleOwner(), invitados -> adaptador.setItems(invitados));
 
+        // Configurar el RecyclerView
         setupRecyclerView();
 
+        // Configurar el listener de búsqueda en el SearchView
         binding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -51,16 +59,18 @@ public class InvitadosFragment extends Fragment implements OnItemClickListener<I
     }
 
     private void setupRecyclerView() {
+        // Configurar el RecyclerView con un LinearLayoutManager y el adaptador
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         binding.rvInvitados.setLayoutManager(linearLayoutManager);
         binding.rvInvitados.setAdapter(adaptador);
     }
 
     private void buscarPorInvitados(String nombre) {
+        // Realizar la búsqueda por nombre y actualizar el adaptador con los resultados
         viewModel.buscarPorInvitados(nombre).observe(getViewLifecycleOwner(), invitados -> adaptador.setItems(invitados));
     }
 
-@Override
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
@@ -68,7 +78,7 @@ public class InvitadosFragment extends Fragment implements OnItemClickListener<I
 
     @Override
     public void onItemClick(Invitados data) {
-        // Acción al hacer clic en un evento
+        // Acción al hacer clic en un invitado
     }
 
 }

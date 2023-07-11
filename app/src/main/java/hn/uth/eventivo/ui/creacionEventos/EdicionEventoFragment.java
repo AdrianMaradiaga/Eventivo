@@ -17,21 +17,31 @@ import java.util.Calendar;
 import hn.uth.eventivo.database.Eventos;
 import hn.uth.eventivo.databinding.FragmentCreacionEventoBinding;
 
-public class EdicionEventoFragment  extends Fragment {
+public class EdicionEventoFragment extends Fragment {
 
     private FragmentCreacionEventoBinding binding;
     private CreacionEventoViewModel viewModel;
     private Eventos eventoExistente;
 
+    /**
+     * Crea y devuelve la vista del fragmento.
+     * @param inflater El LayoutInflater utilizado para inflar la vista.
+     * @param container El contenedor padre en el que se muestra la vista.
+     * @param savedInstanceState El estado previamente guardado del fragmento.
+     * @return La vista creada del fragmento.
+     */
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentCreacionEventoBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        // Verificar si se pasó un evento existente como argumento
         if (getArguments() != null) {
             binding.bxEstado.setVisibility(View.VISIBLE); // Mostrar bxEstado en el fragmento de edición
             Bundle bundle = getArguments();
             if (bundle != null) {
                 eventoExistente = bundle.getParcelable("evento");
                 if (eventoExistente != null) {
+                    // Rellenar los campos con los datos del evento existente
                     binding.tilTema.setText(eventoExistente.getTema());
                     binding.tilExpositor.setText(eventoExistente.getExpositor());
                     binding.dtFecha.setText(eventoExistente.getFecha());
@@ -41,9 +51,10 @@ public class EdicionEventoFragment  extends Fragment {
             }
         }
 
+        // Inicializar el ViewModel asociado al fragmento
         viewModel = new ViewModelProvider(requireActivity()).get(CreacionEventoViewModel.class);
 
-
+        // Configurar el botón de guardar
         binding.btnGuardar.setOnClickListener(v -> {
             String tema = binding.tilTema.getText().toString();
             String expositor = binding.tilExpositor.getText().toString();
@@ -68,6 +79,8 @@ public class EdicionEventoFragment  extends Fragment {
 
             finish();
         });
+
+        // Configurar el botón de selección de fecha
         binding.btnFecha.setOnClickListener(v -> {
             // Obtener fecha actual
             Calendar calendar = Calendar.getInstance();
@@ -87,12 +100,13 @@ public class EdicionEventoFragment  extends Fragment {
 
             // Mostrar el DatePickerDialog
             datePickerDialog.show();
-
         });
+
         return root;
     }
 
     private void finish() {
+        // Método personalizado utilizado para realizar alguna acción adicional al finalizar el fragmento
     }
 
     @Override

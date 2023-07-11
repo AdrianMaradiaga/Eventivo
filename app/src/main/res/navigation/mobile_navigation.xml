@@ -47,5 +47,4 @@
         tools:layout="@layout/fragment_creacion_invitado"
         />
 
-
 </navigation>
