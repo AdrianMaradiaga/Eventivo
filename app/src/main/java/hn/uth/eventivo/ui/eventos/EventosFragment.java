@@ -10,9 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-
 import java.util.ArrayList;
-
 import hn.uth.eventivo.OnItemClickListener;
 import hn.uth.eventivo.database.Eventos;
 import hn.uth.eventivo.databinding.FragmentEventosBinding;
