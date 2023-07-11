@@ -1,11 +1,7 @@
 package hn.uth.eventivo;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Menu;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -37,7 +33,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
          super.onCreate(savedInstanceState);
-         eventosRepository = new EventosRepository(this.getApplication());
+
+        eventosRepository = new EventosRepository(this.getApplication());
+         invitadosRepository = new InvitadosRepository(this.getApplication());
 
          binding = ActivityMainBinding.inflate(getLayoutInflater());
          setContentView(binding.getRoot());
@@ -56,32 +54,22 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //NavHostFragment.findNavController(EventosFragment.this).navigate(R.id.action_eventosFragment_to_creacionEventoFragment);
-                navController.navigate(R.id.nav_creacion_evento);
-            }
-        });
+
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        MenuItem limpiador = menu.findItem(R.id.action_delete);
-        SpannableString spannableString = new SpannableString(limpiador.getTitle());
-        spannableString.setSpan(new ForegroundColorSpan(Color.WHITE), 0, spannableString.length(), 0);
-        limpiador.setTitle(spannableString);
-        return true;
-    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
         if (id == R.id.action_delete) {
             eventosRepository.deleteAll();
-            Toast.makeText(getApplicationContext(), "Los eventos de la agenda han sido borrados", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Los eventos han sido borrados", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+
+        if (id == R.id.action_delete_invitados) {
+            invitadosRepository.deleteAll();
+            Toast.makeText(getApplicationContext(), "Los invitados han sido borrados", Toast.LENGTH_SHORT).show();
             return true;
         }
 

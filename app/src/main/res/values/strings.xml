@@ -5,7 +5,9 @@
     <string name="nav_header_title">Eventivo</string>
     <string name="nav_header_subtitle">eventivo@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="action_delete">Limpiar pantalla</string>
+    <string name="action_delete_eventos">Limpiar Eventos</string>
+    <string name="action_delete_invitados">Limpiar Invitados</string>
+
 
     <string name="menu_eventos">Eventos</string>
     <string name="menu_invitados">Invitados</string>
